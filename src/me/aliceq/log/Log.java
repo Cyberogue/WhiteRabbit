@@ -111,6 +111,16 @@ public class Log {
     /**
      * Pushes a message into the queue
      *
+     * @param message
+     * @param tag
+     */
+    public synchronized static void log(String tag, Object message) {
+        singleton.queue.push(new Date().toString() + " | " + tag + " | " + message.toString());
+    }
+
+    /**
+     * Pushes a message into the queue
+     *
      * @param info
      */
     public synchronized static void logInfo(Object info) {
