@@ -21,12 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package me.aliceq.log;
+package me.aliceq.log.test;
+
+import java.util.Random;
+import me.aliceq.log.*;
 
 /**
  *
  * @author Alice Quiros <email@aliceq.me>
  */
-public class FileLogger {
-    
+public class FileLoggerTest {
+
+    public static void main(String[] args) {
+        // Initialize the Log
+        Log.initialize();
+
+        // Start a loop timer
+        for (int i = 0; i < 20; i++) {
+            Random r = new Random();
+            try {
+                // Write info, warning, error with delays in between
+                Log.logInfo("I" + r.nextInt(1000));
+                System.out.println("+queue");
+                Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
+
+                Log.logWarning("W" + r.nextInt(1000));
+                System.out.println("+queue");
+                Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
+
+                Log.logError("E" + r.nextInt(1000));
+                System.out.println("+queue");
+                Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
+
+            } catch (Exception e) {
+                Log.logException(e);
+            }
+        }
+
+        // Exit, this should cause the writer to self-terminate
+    }
 }
