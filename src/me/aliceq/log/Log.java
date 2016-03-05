@@ -34,6 +34,12 @@ import java.util.Date;
 public class Log {
 
     public static final int DEFAULT_TIMEOUT = 1000;
+
+    public static String INFO_TAG = "[INFO]";
+    public static String WARN_TAG = "[WARN]";
+    public static String ERROR_TAG = "[ERR0]";
+    public static String EXCEPTION_TAG = "[EXEP]";
+
     private static Log singleton = null;
 
     private final LogWriter writer;
@@ -108,7 +114,7 @@ public class Log {
      * @param info
      */
     public synchronized static void logInfo(Object info) {
-        singleton.queue.push(new Date().toString() + " | [ INFO] | " + info.toString());
+        singleton.queue.push(new Date().toString() + " | " + INFO_TAG + " | " + info.toString());
     }
 
     /**
@@ -117,7 +123,7 @@ public class Log {
      * @param warning
      */
     public synchronized static void logWarning(Object warning) {
-        singleton.queue.push(new Date().toString() + " | [ WARN] | " + warning.toString());
+        singleton.queue.push(new Date().toString() + " | " + WARN_TAG + " | " + warning.toString());
     }
 
     /**
@@ -126,7 +132,7 @@ public class Log {
      * @param error
      */
     public synchronized static void logError(Object error) {
-        singleton.queue.push(new Date().toString() + " | [ERROR] | " + error.toString());
+        singleton.queue.push(new Date().toString() + " | " + ERROR_TAG + " | " + error.toString());
     }
 
     /**
@@ -135,7 +141,7 @@ public class Log {
      * @param e
      */
     public synchronized static void logException(Exception e) {
-        singleton.queue.push(new Date().toString() + " | [EXEPT] | " + e);
+        singleton.queue.push(new Date().toString() + " | " + EXCEPTION_TAG + " | " + e);
     }
 
     public synchronized static void quit() {
