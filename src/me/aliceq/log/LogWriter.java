@@ -108,12 +108,9 @@ public final class LogWriter implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Writer run");
         try {
             while (true) {
                 int n = clearQueue();
-
-                System.out.println("Writer pass complete, " + n + " objects, " + timeout.getTimeout(n) + "ms");
 
                 // Timeout
                 try {

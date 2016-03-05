@@ -41,15 +41,15 @@ public class FileLoggerTest {
             Random r = new Random();
             try {
                 // Write info, warning, error with delays in between
-                Log.logInfo("I" + r.nextInt(1000));
+                Log.logInfo(r.nextInt(1000000));
                 System.out.println("+queue");
                 Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
 
-                Log.logWarning("W" + r.nextInt(1000));
+                Log.logWarning(r.nextInt(1000000));
                 System.out.println("+queue");
                 Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
 
-                Log.logError("E" + r.nextInt(1000));
+                Log.logError( r.nextInt(1000000));
                 System.out.println("+queue");
                 Thread.sleep(r.nextFloat() < .9 ? r.nextInt(750) : 4500);
 

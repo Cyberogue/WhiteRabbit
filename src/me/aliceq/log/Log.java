@@ -88,7 +88,6 @@ public class Log {
         if (singleton == null) {
             singleton = new Log(mode, logpath);
             singleton.wrThread.start();
-            System.out.println("Thread start");
             return singleton;
         }
         return null;
@@ -109,7 +108,7 @@ public class Log {
      * @param info
      */
     public synchronized static void logInfo(Object info) {
-        singleton.queue.push(new Date().toString() + " | [INFO] | " + info.toString());
+        singleton.queue.push(new Date().toString() + " | [ INFO] | " + info.toString());
     }
 
     /**
@@ -118,7 +117,7 @@ public class Log {
      * @param warning
      */
     public synchronized static void logWarning(Object warning) {
-        singleton.queue.push(new Date().toString() + " | [WARN] | " + warning.toString());
+        singleton.queue.push(new Date().toString() + " | [ WARN] | " + warning.toString());
     }
 
     /**
