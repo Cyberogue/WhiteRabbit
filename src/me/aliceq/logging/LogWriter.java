@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package me.aliceq.log;
+package me.aliceq.logging;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +43,7 @@ public final class LogWriter implements Runnable {
 
     private OutputStreamWriter writer;
     private TimeoutMode timeout;
+    private boolean idle;
 
     /**
      *
@@ -56,6 +57,7 @@ public final class LogWriter implements Runnable {
     public LogWriter(TimeoutMode timeout, ArrayDeque<String> queue, String logpath) {
         this.timeout = timeout;
         this.queue = queue;
+        this.idle = true;
         initLogWriter(logpath);
     }
 
@@ -110,17 +112,35 @@ public final class LogWriter implements Runnable {
     public void run() {
         try {
             while (true) {
+                // Clear queue
                 int n = clearQueue();
 
                 // Timeout
                 try {
-                    Thread.sleep(timeout.getTimeout(n));
+
+                    synchronized (this) {
+                        idle = true;
+                        wait(timeout.getTimeout(n));
+                        idle = false;
+                    }
                 } catch (Exception e) {
+                    // Wake up and continue
+                    idle = false;
                 }
+
             }
         } finally {
             exit();
         }
+    }
+
+    /**
+     * Returns true if the writer is idle or waiting
+     *
+     * @return true if the writer is idle or waiting
+     */
+    public boolean isIdle() {
+        return idle;
     }
 
     /**

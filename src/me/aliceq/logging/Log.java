@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package me.aliceq.log;
+package me.aliceq.logging;
 
+import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.Date;
 
@@ -154,8 +155,36 @@ public class Log {
         singleton.queue.push(new Date().toString() + " | " + EXCEPTION_TAG + " | " + e);
     }
 
+    /**
+     * Forces the writer to flush if it is waiting
+     */
+    public static void flush() {
+        {
+            synchronized (singleton.writer) {
+                if (singleton.writer.isIdle()) {
+                    singleton.writer.notify();
+                }
+            }
+        }
+    }
+
+    /**
+     * Marks the logging framework for exit. Warning, if this message is not
+     * called the most recent messages may not get logged.
+     */
     public synchronized static void quit() {
         singleton.writer.exit();
+    }
+
+    /**
+     * Creates an interceptor to intercept and log System.out messages
+     *
+     * @param passthrough when true, messages get passed through to System.out
+     * as normal
+     */
+    public static void interceptSystemOut(boolean passthrough) {
+        PrintStream inter = new LogIntercept(System.out, passthrough);
+        System.setOut(inter);
     }
 
     /**
