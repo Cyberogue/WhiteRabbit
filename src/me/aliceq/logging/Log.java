@@ -156,6 +156,21 @@ public class Log {
     }
     
     /**
+     * Pushes an exception and its stack trace into the queue
+     *
+     * @param e
+     */
+    public static void logExceptionVerbose(Exception e) {
+        String prefix = new Date().toString() + " | " + EXCEPTION_TAG + " | ";
+        
+        singleton.queue.push(prefix + e);
+        
+        for (StackTraceElement element : e.getStackTrace()){
+            singleton.queue.push(prefix + element.toString());  
+        }
+    }
+    
+    /**
      * Logs a blank line with no date-time or tag
      */
     public static void blankLine(){
