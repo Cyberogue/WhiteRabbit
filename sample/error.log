@@ -1,0 +1,8 @@
+Thu Mar 17 00:44:55 EDT 2016 | [INFO] | This is an info message.
+Thu Mar 17 00:44:55 EDT 2016 | [WARN] | This is a warning.
+Thu Mar 17 00:44:55 EDT 2016 | [ERR0] | This is an error.
+Thu Mar 17 00:44:55 EDT 2016 | [EXEP] | java.lang.RuntimeException: This is an exception.
+Thu Mar 17 00:44:55 EDT 2016 | [TAG] | This is a custom tag.
+
+Thu Mar 17 00:44:55 EDT 2016 | [LOGX] | This is a System.out message
+Thu Mar 17 00:44:55 EDT 2016 | [LOGX] | This should display on console output

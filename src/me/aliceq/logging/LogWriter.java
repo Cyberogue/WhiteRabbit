@@ -99,7 +99,7 @@ public final class LogWriter implements Runnable {
 
         try {
             while (!queue.isEmpty()) {
-                writer.write(queue.pop() + '\n');
+                writer.write(queue.pollLast() + '\n');
             }
             writer.flush();
         } catch (IOException e) {

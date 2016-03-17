@@ -115,7 +115,7 @@ public class Log {
      * @param message
      * @param tag
      */
-    public synchronized static void log(String tag, Object message) {
+    public static void log(String tag, Object message) {
         singleton.queue.push(new Date().toString() + " | " + tag + " | " + message.toString());
     }
 
@@ -124,7 +124,7 @@ public class Log {
      *
      * @param info
      */
-    public synchronized static void logInfo(Object info) {
+    public static void logInfo(Object info) {
         singleton.queue.push(new Date().toString() + " | " + INFO_TAG + " | " + info.toString());
     }
 
@@ -133,7 +133,7 @@ public class Log {
      *
      * @param warning
      */
-    public synchronized static void logWarning(Object warning) {
+    public static void logWarning(Object warning) {
         singleton.queue.push(new Date().toString() + " | " + WARN_TAG + " | " + warning.toString());
     }
 
@@ -142,7 +142,7 @@ public class Log {
      *
      * @param error
      */
-    public synchronized static void logError(Object error) {
+    public static void logError(Object error) {
         singleton.queue.push(new Date().toString() + " | " + ERROR_TAG + " | " + error.toString());
     }
 
@@ -151,8 +151,15 @@ public class Log {
      *
      * @param e
      */
-    public synchronized static void logException(Exception e) {
+    public static void logException(Exception e) {
         singleton.queue.push(new Date().toString() + " | " + EXCEPTION_TAG + " | " + e);
+    }
+    
+    /**
+     * Logs a blank line with no date-time or tag
+     */
+    public static void blankLine(){
+        singleton.queue.push("");
     }
 
     /**
